@@ -15,10 +15,11 @@ public class ClientHandlerUDP extends Thread {
     @Override
     public void run() {
         try {
+            // Crea el mensaje
             String mensaje = new String(paquete.getData(), 0, paquete.getLength());
-            int numero = Integer.parseInt(mensaje);
+            int numero = Integer.parseInt(mensaje); // convierte el mensaje en entero
 
-            String resultado = calcularPrimos(numero);
+            String resultado = calcularPrimos(numero); // utiliza la funcion de calcular primos para calcular el resultado
 
             byte[] datos = resultado.getBytes();
             DatagramPacket respuesta = new DatagramPacket(
@@ -27,10 +28,32 @@ public class ClientHandlerUDP extends Thread {
                     paquete.getPort()
             );
 
-            socket.send(respuesta);
+            socket.send(respuesta); // envia la respuesta
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    // Funcion para calcular los primos
+    private String calcularPrimos(int n) {
+        String resultado = "";
+
+
+        for (int i = 2; i <= n; i++) {
+            boolean primo = true;
+
+            for (int j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    primo = false;
+                    break;
+                }
+            }
+
+            if (primo) {
+                resultado += i + ",";
+            }
+        }
+
+        return resultado;
     }
 }
