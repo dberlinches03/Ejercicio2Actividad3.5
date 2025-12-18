@@ -49,11 +49,12 @@ public class ClientHandlerUDP extends Thread {
                 }
             }
 
+            // si es primo sumale i y ,
             if (primo) {
                 resultado += i + ",";
             }
         }
 
-        return resultado;
+        return resultado; // devuelve un entero
     }
 }
